@@ -167,7 +167,9 @@ impl TryFrom<&[u8]> for LegacyTransaction {
 
         let outputs = if data.len() >= lock_time_offset {
             let outputs_count = u32::from_le_bytes(
-                data[outputs_count_offset..lock_time_offset].try_into().unwrap(),
+                data[outputs_count_offset..lock_time_offset]
+                    .try_into()
+                    .unwrap(),
             );
             Vec::with_capacity(outputs_count as usize)
         } else {
@@ -175,7 +177,11 @@ impl TryFrom<&[u8]> for LegacyTransaction {
         };
 
         let lock_time = if data.len() >= lock_time_offset + 4 {
-            u32::from_le_bytes(data[lock_time_offset..lock_time_offset + 4].try_into().unwrap())
+            u32::from_le_bytes(
+                data[lock_time_offset..lock_time_offset + 4]
+                    .try_into()
+                    .unwrap(),
+            )
         } else {
             0
         };
